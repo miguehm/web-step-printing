@@ -65,17 +65,17 @@ function ajustarAspecto(){
    return;
  }
 
- const vw=video.videoWidth;
- const vh=video.videoHeight;
- const videoAspect=vw/vh;
+ let vw=video.videoWidth;
+ let vh=video.videoHeight;
  
- // Calcular aspecto de pantalla considerando si el video está rotado
- let screenAspect=innerWidth/innerHeight;
+ // Si está rotado 90° o 270°, intercambiar ancho y alto
  const isRotated90or270 = videoRotation === Math.PI/2 || videoRotation === (3*Math.PI/2);
  if(isRotated90or270){
-   // Si está rotado 90° o 270°, el aspecto de la pantalla se invierte
-   screenAspect=innerHeight/innerWidth;
+   [vw, vh] = [vh, vw];
  }
+ 
+ const videoAspect=vw/vh;
+ const screenAspect=innerWidth/innerHeight;
 
  let scaleX=1, scaleY=1;
 
