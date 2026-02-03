@@ -443,13 +443,24 @@ input[type="range"]::-moz-range-thumb:active{
 
 /* BOTÓN INSTRUCCIONES */
 #instructionsToggleBtn{
-    background:#7C4DFF;
-    flex-shrink:0;
-    white-space:nowrap;
+     background:#7C4DFF;
+     flex-shrink:0;
+     white-space:nowrap;
 }
 
 #instructionsToggleBtn:active{
-    transform:scale(0.97);
+     transform:scale(0.97);
+}
+
+/* BOTÓN ROTAR */
+#rotateBtn{
+     background:#00BCD4;
+     flex-shrink:0;
+     white-space:nowrap;
+}
+
+#rotateBtn:active{
+     transform:scale(0.97);
 }
 
 /* TIEMPO DEL VIDEO */

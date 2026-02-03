@@ -5,6 +5,7 @@ let video=document.createElement("video");
 video.muted=false;
 video.playsInline=true;
 video.loop=false;
+video.style.transform="rotate(0deg)";
 
 const renderer=new THREE.WebGLRenderer();
 renderer.setSize(innerWidth,innerHeight);
@@ -22,15 +23,28 @@ uniforms:{
  tCurrent:{value:null},
  tAccum:{value:null},
  decay:{value:0.93},
- resolution:{value:new THREE.Vector2(innerWidth,innerHeight)}
+ resolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
+ rotation:{value:0}
 },
 fragmentShader:`
 uniform sampler2D tCurrent;
 uniform sampler2D tAccum;
 uniform float decay;
 uniform vec2 resolution;
+uniform float rotation;
+
+vec2 rotateUV(vec2 uv, float angle) {
+  float s = sin(angle);
+  float c = cos(angle);
+  uv -= 0.5;
+  uv = mat2(c, -s, s, c) * uv;
+  uv += 0.5;
+  return uv;
+}
+
 void main(){
  vec2 uv=gl_FragCoord.xy/resolution;
+ uv = rotateUV(uv, rotation);
  vec4 cur=texture2D(tCurrent,uv);
  vec4 acc=texture2D(tAccum,uv);
  gl_FragColor=mix(cur,acc,decay);
@@ -49,6 +63,7 @@ screenScene.add(screenQuad);
 let a=rtA,b=rtB;
 let videoTex=null;
 let cameraActive=false;
+let videoRotation=0;
 
 // 🎨 Canvas para renderizar cuando no hay fuente activa
 const blankMat=new THREE.MeshBasicMaterial({color:0x000000});
@@ -108,13 +123,11 @@ document.addEventListener("click",e=>{
 
 // ⏸ Botón play/pausa
 playPauseBtn.onclick=()=>{
- if(video.paused){
-   video.play();
-   playPauseBtn.textContent="⏸ ";
- }else{
-   video.pause();
-   playPauseBtn.textContent="⏯ ";
- }
+  if(video.paused){
+    video.play();
+  }else{
+    video.pause();
+  }
 };
 
 // 📁 Botón upload archivo
@@ -133,17 +146,15 @@ instructionsToggleBtn.onclick=()=>{
 
 // ⛶ Botón pantalla completa
 fullscreenBtn.onclick=async()=>{
- try{
-   if(!document.fullscreenElement){
-     await document.documentElement.requestFullscreen();
-     fullscreenBtn.textContent="⛶";
-   }else{
-     await document.exitFullscreen();
-     fullscreenBtn.textContent="⛶";
-   }
- }catch(e){
-   console.error("Error al cambiar fullscreen:",e);
- }
+  try{
+    if(!document.fullscreenElement){
+      await document.documentElement.requestFullscreen();
+    }else{
+      await document.exitFullscreen();
+    }
+  }catch(e){
+    console.error("Error al cambiar fullscreen:",e);
+  }
 };
 
 // ⏱ Actualizar slider cuando cambia el tiempo del video
@@ -261,15 +272,20 @@ videoFile.onchange=e=>{
      URL.revokeObjectURL(video.src);
    }
    
-   video.src=URL.createObjectURL(file);
-   video.play();
-   playPauseBtn.textContent="⏸ ";
-   videoTex=new THREE.VideoTexture(video);
+    video.src=URL.createObjectURL(file);
+    video.play();
+    videoTex=new THREE.VideoTexture(video);
    video.onloadedmetadata=()=>{
      ajustarAspecto();
      actualizarControlesVideo();
      instructionsPanel.style.display="none";
    };
+};
+
+// 🔄 Botón rotar video
+rotateBtn.onclick=()=>{
+  videoRotation=(videoRotation+Math.PI/2)%(2*Math.PI);
+  mat.uniforms.rotation.value=videoRotation;
 };
 
 window.addEventListener("resize",()=>{
