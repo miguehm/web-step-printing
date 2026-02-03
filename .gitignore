@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Vite
+dist/
+.vite/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
