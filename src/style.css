@@ -505,3 +505,35 @@ input[type="range"]::-moz-range-thumb:active{
       gap:16px;
     }
 }
+
+/* ENLACES DE REDES SOCIALES */
+.instructionsContent a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(33, 150, 243, 0.1);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.instructionsContent a:hover {
+  background: rgba(33, 150, 243, 0.3);
+  transform: scale(1.1);
+}
+
+.instructionsContent a:active {
+  transform: scale(0.95);
+}
+
+.instructionsContent a svg {
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.instructionsContent a:hover svg {
+  opacity: 1;
+}
