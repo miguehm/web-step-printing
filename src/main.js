@@ -38,7 +38,7 @@ void main(){
 vertexShader:`void main(){gl_Position=vec4(position,1.0);}`
 });
 
-// 🔲 Planos
+// Planes
 const quad=new THREE.Mesh(new THREE.PlaneGeometry(2,2),mat);
 scene.add(quad);
 
@@ -51,13 +51,13 @@ let videoTex=null;
 let cameraActive=false;
 let videoRotation=0;
 
-// 🎨 Canvas para renderizar cuando no hay fuente activa
+// Canvas para renderizar cuando no hay fuente activa
 const blankMat=new THREE.MeshBasicMaterial({color:0x000000});
 const blankQuad=new THREE.Mesh(new THREE.PlaneGeometry(2,2),blankMat);
 const blankScene=new THREE.Scene();
 blankScene.add(blankQuad);
 
-// 🎯 Ajustar proporción
+// Ajustar proporción
 function ajustarAspecto(){
  // Reintentar si aún no hay dimensiones
  if(!video.videoWidth || !video.videoHeight){
@@ -91,7 +91,7 @@ function ajustarAspecto(){
  screenQuad.rotation.z=videoRotation;
 }
 
-// ⏯ Función para actualizar la UI de controles de video
+// Función para actualizar la UI de controles de video
 function actualizarControlesVideo(){
  if(!videoTex){
    videoControls.style.display="none";
@@ -100,7 +100,7 @@ function actualizarControlesVideo(){
  videoControls.style.display="flex";
 }
 
-// 🖱 Toggle menú con click en pantalla
+// Toggle menú con click en pantalla
 let menuVisible=true;
 document.addEventListener("click",e=>{
  // No ocultar si se clickeó dentro del menú
@@ -116,7 +116,7 @@ document.addEventListener("click",e=>{
  menu.style.pointerEvents=menuVisible?"auto":"none";
 });
 
-// ⏸ Botón play/pausa
+// Botón play/pausa
 playPauseBtn.onclick=()=>{
   if(video.paused){
     video.play();
@@ -139,12 +139,12 @@ function actualizarPlayPauseSvg(){
   }
 }
 
-// 📁 Botón upload archivo
+// Botón upload archivo
 uploadBtn.onclick=()=>{
  videoFile.click();
 };
 
-// ❓ Botón toggle instrucciones
+// Botón toggle instrucciones
 instructionsToggleBtn.onclick=()=>{
  if(instructionsPanel.style.display==="none"){
    instructionsPanel.style.display="flex";
@@ -153,7 +153,7 @@ instructionsToggleBtn.onclick=()=>{
  }
 };
 
-// ⛶ Botón pantalla completa
+// Botón pantalla completa
 fullscreenBtn.onclick=async()=>{
   try{
     if(!document.fullscreenElement){
@@ -166,7 +166,7 @@ fullscreenBtn.onclick=async()=>{
   }
 };
 
-// ⏱ Actualizar slider cuando cambia el tiempo del video
+// Actualizar slider cuando cambia el tiempo del video
 video.ontimeupdate=()=>{
  if(video.duration){
    videoTime.value=(video.currentTime/video.duration)*100;
@@ -191,14 +191,14 @@ video.onplay=()=>{
   actualizarPlayPauseSvg();
 };
 
-// ⏱ Cuando el usuario mueve el slider
+// Cuando el usuario mueve el slider
 videoTime.oninput=e=>{
  if(video.duration){
    video.currentTime=(parseFloat(e.target.value)/100)*video.duration;
  }
 };
 
-// 🔁 Loop
+// Loop
 function loop(){
   requestAnimationFrame(loop);
   if(videoTex){
@@ -222,7 +222,7 @@ function loop(){
 }
 loop();
 
-// 📷 Cámara - Toggle
+// Cámara - Toggle
 useCam.onclick=async()=>{
   if(cameraActive){
     // Apagar cámara
@@ -274,7 +274,7 @@ useCam.onclick=async()=>{
   }
 };
 
-// 🎞️ Archivo
+// Archivo
 videoFile.onchange=e=>{
    const file=e.target.files[0];
    if(!file) return;
@@ -302,7 +302,7 @@ videoFile.onchange=e=>{
     };
 };
 
-// 🔄 Botón rotar video
+// Botón rotar video
 rotateBtn.onclick=()=>{
   videoRotation=(videoRotation+Math.PI/2)%(2*Math.PI);
   ajustarAspecto();
