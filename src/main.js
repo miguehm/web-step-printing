@@ -5,7 +5,6 @@ let video=document.createElement("video");
 video.muted=false;
 video.playsInline=true;
 video.loop=false;
-video.style.transform="rotate(0deg)";
 
 const renderer=new THREE.WebGLRenderer();
 renderer.setSize(innerWidth,innerHeight);
@@ -23,28 +22,15 @@ uniforms:{
  tCurrent:{value:null},
  tAccum:{value:null},
  decay:{value:0.93},
- resolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
- rotation:{value:0}
+ resolution:{value:new THREE.Vector2(innerWidth,innerHeight)}
 },
 fragmentShader:`
 uniform sampler2D tCurrent;
 uniform sampler2D tAccum;
 uniform float decay;
 uniform vec2 resolution;
-uniform float rotation;
-
-vec2 rotateUV(vec2 uv, float angle) {
-  float s = sin(angle);
-  float c = cos(angle);
-  uv -= 0.5;
-  uv = mat2(c, -s, s, c) * uv;
-  uv += 0.5;
-  return uv;
-}
-
 void main(){
  vec2 uv=gl_FragCoord.xy/resolution;
- uv = rotateUV(uv, rotation);
  vec4 cur=texture2D(tCurrent,uv);
  vec4 acc=texture2D(tAccum,uv);
  gl_FragColor=mix(cur,acc,decay);
@@ -79,8 +65,15 @@ function ajustarAspecto(){
    return;
  }
 
- const vw=video.videoWidth;
- const vh=video.videoHeight;
+ let vw=video.videoWidth;
+ let vh=video.videoHeight;
+ 
+ // Si está rotado 90° o 270°, intercambiar ancho y alto
+ const isRotated90or270 = videoRotation === Math.PI/2 || videoRotation === (3*Math.PI/2);
+ if(isRotated90or270){
+   [vw, vh] = [vh, vw];
+ }
+ 
  const videoAspect=vw/vh;
  const screenAspect=innerWidth/innerHeight;
 
@@ -94,6 +87,8 @@ function ajustarAspecto(){
 
  quad.scale.set(scaleX,scaleY,1);
  screenQuad.scale.set(scaleX,scaleY,1);
+ quad.rotation.z=videoRotation;
+ screenQuad.rotation.z=videoRotation;
 }
 
 // ⏯ Función para actualizar la UI de controles de video
@@ -285,7 +280,7 @@ videoFile.onchange=e=>{
 // 🔄 Botón rotar video
 rotateBtn.onclick=()=>{
   videoRotation=(videoRotation+Math.PI/2)%(2*Math.PI);
-  mat.uniforms.rotation.value=videoRotation;
+  ajustarAspecto();
 };
 
 window.addEventListener("resize",()=>{
