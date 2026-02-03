@@ -80,13 +80,10 @@ function ajustarAspecto(){
  let scaleX=1, scaleY=1;
 
  if(videoAspect>screenAspect){
-   // El video es más ancho que la pantalla
    scaleY=screenAspect/videoAspect;
- }else if(videoAspect<screenAspect){
-   // El video es más alto que la pantalla
+ }else{
    scaleX=videoAspect/screenAspect;
  }
- // Si videoAspect === screenAspect, scaleX=1, scaleY=1
 
  quad.scale.set(scaleX,scaleY,1);
  screenQuad.scale.set(scaleX,scaleY,1);
@@ -289,23 +286,20 @@ videoFile.onchange=e=>{
      cameraActive=false;
      useCam.style.opacity="1";
    }
-    // Limpiar archivo anterior
-    if(video.src){
-      URL.revokeObjectURL(video.src);
-    }
-    
-    // Reiniciar rotación al cargar un nuevo video
-    videoRotation=0;
-    
-     video.src=URL.createObjectURL(file);
-     video.play();
-     videoTex=new THREE.VideoTexture(video);
-     actualizarPlayPauseSvg();
-     video.onloadedmetadata=()=>{
-       ajustarAspecto();
-       actualizarControlesVideo();
-       instructionsPanel.style.display="none";
-     };
+   // Limpiar archivo anterior
+   if(video.src){
+     URL.revokeObjectURL(video.src);
+   }
+   
+    video.src=URL.createObjectURL(file);
+    video.play();
+    videoTex=new THREE.VideoTexture(video);
+    actualizarPlayPauseSvg();
+    video.onloadedmetadata=()=>{
+      ajustarAspecto();
+      actualizarControlesVideo();
+      instructionsPanel.style.display="none";
+    };
 };
 
 // 🔄 Botón rotar video
