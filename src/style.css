@@ -521,10 +521,11 @@ input[type="range"]::-moz-range-thumb:active{
 .instructionsContent a svg {
   color: white;
   opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 }
 
 .instructionsContent a:hover svg {
+  color: #2196f3;
   opacity: 1;
 }
 
