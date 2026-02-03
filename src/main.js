@@ -120,10 +120,24 @@ document.addEventListener("click",e=>{
 playPauseBtn.onclick=()=>{
   if(video.paused){
     video.play();
+    actualizarPlayPauseSvg();
   }else{
     video.pause();
+    actualizarPlayPauseSvg();
   }
 };
+
+// Actualizar icono play/pausa
+function actualizarPlayPauseSvg(){
+  const svg=document.getElementById('playPauseSvg');
+  if(video.paused){
+    // Mostrar icono de play (triángulo)
+    svg.innerHTML='<polygon points="5 3 19 12 5 21 5 3"/>';
+  }else{
+    // Mostrar icono de pausa (dos barras)
+    svg.innerHTML='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  }
+}
 
 // 📁 Botón upload archivo
 uploadBtn.onclick=()=>{
@@ -165,6 +179,16 @@ video.ontimeupdate=()=>{
    
    timeLabel.textContent=`${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
  }
+};
+
+// Actualizar icono cuando el video se pausa
+video.onpause=()=>{
+  actualizarPlayPauseSvg();
+};
+
+// Actualizar icono cuando el video se reanuda
+video.onplay=()=>{
+  actualizarPlayPauseSvg();
 };
 
 // ⏱ Cuando el usuario mueve el slider
@@ -270,11 +294,12 @@ videoFile.onchange=e=>{
     video.src=URL.createObjectURL(file);
     video.play();
     videoTex=new THREE.VideoTexture(video);
-   video.onloadedmetadata=()=>{
-     ajustarAspecto();
-     actualizarControlesVideo();
-     instructionsPanel.style.display="none";
-   };
+    actualizarPlayPauseSvg();
+    video.onloadedmetadata=()=>{
+      ajustarAspecto();
+      actualizarControlesVideo();
+      instructionsPanel.style.display="none";
+    };
 };
 
 // 🔄 Botón rotar video
