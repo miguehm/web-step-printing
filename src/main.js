@@ -77,19 +77,26 @@ function ajustarAspecto(){
    screenAspect=innerHeight/innerWidth;
  }
 
- let scaleX=1, scaleY=1;
-
+ // Crear geometría con proporciones correctas del video
+ let width=2, height=2;
+ 
  if(videoAspect>screenAspect){
    // El video es más ancho que la pantalla
-   scaleY=screenAspect/videoAspect;
+   height=2*(videoAspect/screenAspect);
  }else if(videoAspect<screenAspect){
    // El video es más alto que la pantalla
-   scaleX=videoAspect/screenAspect;
+   width=2*(screenAspect/videoAspect);
  }
- // Si videoAspect === screenAspect, scaleX=1, scaleY=1
+ // Si videoAspect === screenAspect, width=2, height=2
 
- quad.scale.set(scaleX,scaleY,1);
- screenQuad.scale.set(scaleX,scaleY,1);
+ // Actualizar geometrías
+ quad.geometry.dispose();
+ quad.geometry=new THREE.PlaneGeometry(width,height);
+ 
+ screenQuad.geometry.dispose();
+ screenQuad.geometry=new THREE.PlaneGeometry(width,height);
+ 
+ // Aplicar rotación
  quad.rotation.z=videoRotation;
  screenQuad.rotation.z=videoRotation;
 }
