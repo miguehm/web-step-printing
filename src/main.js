@@ -103,17 +103,22 @@ function actualizarControlesVideo(){
 // Toggle menú con click en pantalla
 let menuVisible=true;
 document.addEventListener("click",e=>{
- // No ocultar si se clickeó dentro del menú
- if(menu.contains(e.target)) return;
- 
- // Ocultar instrucciones si se clickeó fuera de ellas
- if(instructionsPanel.style.display==="flex" && !instructionsPanel.contains(e.target)){
-   instructionsPanel.style.display="none";
- }
- 
- menuVisible=!menuVisible;
- menu.style.opacity=menuVisible?"1":"0";
- menu.style.pointerEvents=menuVisible?"auto":"none";
+  // No ocultar si se clickeó dentro del menú
+  if(menu.contains(e.target)) return;
+  
+  // Ocultar instrucciones si se clickeó fuera de ellas
+  if(instructionsPanel.style.display==="flex" && !instructionsPanel.contains(e.target)){
+    instructionsPanel.style.display="none";
+  }
+  
+  // No ocultar herramientas si no hay contenido cargado ni cámara encendida
+  if(!videoTex && !cameraActive){
+    return;
+  }
+  
+  menuVisible=!menuVisible;
+  menu.style.opacity=menuVisible?"1":"0";
+  menu.style.pointerEvents=menuVisible?"auto":"none";
 });
 
 // Botón play/pausa
