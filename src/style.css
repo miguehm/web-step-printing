@@ -553,23 +553,21 @@ input[type="range"]::-moz-range-thumb:active{
 /* CONTENEDOR DE SLIDERS COMPACTOS */
 .slidersPart{
    display:flex;
-   gap:6px;
-   align-items:center;
+   flex-direction:column;
+   gap:4px;
    width:100%;
 }
 
 .sliderContainerGroup{
    display:flex;
    flex-direction:column;
-   gap:4px;
-   flex:1;
-   min-width:0;
+   gap:2px;
 }
 
 .sliderContainer{
    display:flex;
    flex-direction:column;
-   gap:4px;
+   gap:2px;
 }
 
 .sliderHeader{
@@ -596,17 +594,32 @@ input[type="range"]::-moz-range-thumb:active{
    }
 }
 
-/* SLIDER COMPACTO - reduce el ancho */
+/* SLIDER COMPACTO - ancho y menos alto */
 .sliderCompact{
    width:100%;
    max-width:100%;
+   height:20px;
+}
+
+/* MOBILE FIRST */
+@media (max-width:599px){
+   .sliderCompact{
+      height:18px;
+   }
+}
+
+/* NAVEGACIÓN DE SLIDERS */
+.sliderNavigation{
+   display:flex;
+   justify-content:center;
+   gap:4px;
+   margin-top:2px;
 }
 
 #nextSliderBtn,
 #prevSliderBtn{
    background:#9C27B0;
    flex-shrink:0;
-   align-self:center;
 }
 
 #nextSliderBtn:active,

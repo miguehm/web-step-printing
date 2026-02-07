@@ -49,22 +49,22 @@
      </div>
 
      <!-- PART 1: Intensidad del rastro -->
-     <div id="slidersPart1" class="slidersPart">
-       <div class="sliderContainerGroup">
-         <div class="sliderContainer">
-           <div class="sliderHeader">
-             <span class="label small-label">Intensidad del rastro</span>
-             <span class="sliderValue" id="trailValue">0.93</span>
-           </div>
-           <input type="range" id="trail" min="0.8" max="0.99" step="0.01" value="0.93" class="sliderCompact">
+     <div id="slidersPart1">
+       <div class="sliderContainer">
+         <div class="sliderHeader">
+           <span class="label small-label">Intensidad del rastro</span>
+           <span class="sliderValue" id="trailValue">0.93</span>
          </div>
+         <input type="range" id="trail" min="0.8" max="0.99" step="0.01" value="0.93" class="sliderCompact">
        </div>
-       <button id="nextSliderBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+       
+       <div class="sliderNavigation">
+         <button id="nextSliderBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+       </div>
      </div>
 
      <!-- PART 2: Contraste y Brillo -->
-     <div id="slidersPart2" class="slidersPart" style="display:none;">
-       <button id="prevSliderBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+     <div id="slidersPart2" style="display:none;">
        <div class="sliderContainerGroup">
          <div class="sliderContainer">
            <div class="sliderHeader">
@@ -81,6 +81,10 @@
            </div>
            <input type="range" id="brightness" min="-0.1" max="0.1" step="0.02" value="0.0" class="sliderCompact">
          </div>
+       </div>
+       
+       <div class="sliderNavigation">
+         <button id="prevSliderBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
        </div>
      </div>
     
