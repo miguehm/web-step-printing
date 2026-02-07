@@ -281,95 +281,64 @@ input[type="file"]{
 
 /* SLIDER TÁCTIL */
 input[type="range"]{
-    width:100%;
-    height:16px;
-    -webkit-appearance:none;
-    background:transparent;
-    cursor:pointer;
+   width:100%;
+   height:48px;
+   -webkit-appearance:none;
+   background:transparent;
+   cursor:pointer;
 }
 
 /* MOBILE FIRST - Pantallas pequeñas */
 @media (max-width:599px){
    input[type="range"]{
-      height:14px;
+      height:32px;
    }
 }
 
 /* TABLET */
 @media (min-width:600px) and (max-width:999px){
    input[type="range"]{
-      height:18px;
+     height:50px;
    }
 }
 
 /* DESKTOP */
 @media (min-width:1000px){
    input[type="range"]{
-      height:22px;
+     height:56px;
    }
 }
 
 /* BARRA */
 input[type="range"]::-webkit-slider-runnable-track{
-    height:3px;
-    background:#555;
-    border-radius:10px;
+   height:8px;
+   background:#555;
+   border-radius:10px;
 }
 
 /* MOBILE FIRST */
 @media (max-width:599px){
    input[type="range"]::-webkit-slider-runnable-track{
-      height:2px;
+      height:4px;
    }
 }
 
 /* TABLET Y DESKTOP */
 @media (min-width:600px){
    input[type="range"]::-webkit-slider-runnable-track{
-      height:4px;
+     height:10px;
    }
 }
 
 /* PERILLA GRANDE */
 input[type="range"]::-webkit-slider-thumb{
-    -webkit-appearance:none;
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background:#ff5722;
-    margin-top:-4px;
-    cursor:grab;
-}
-
-input[type="range"]::-webkit-slider-thumb:active{
-    cursor:grabbing;
-}
-
-/* MOBILE FIRST - Pantallas pequeñas */
-@media (max-width:599px){
-   input[type="range"]::-webkit-slider-thumb{
-      width:12px;
-      height:12px;
-      margin-top:-3px;
-   }
-}
-
-/* TABLET */
-@media (min-width:600px) and (max-width:999px){
-   input[type="range"]::-webkit-slider-thumb{
-      width:16px;
-      height:16px;
-      margin-top:-4px;
-   }
-}
-
-/* DESKTOP */
-@media (min-width:1000px){
-   input[type="range"]::-webkit-slider-thumb{
-      width:18px;
-      height:18px;
-      margin-top:-5px;
-   }
+   -webkit-appearance:none;
+   width:28px;
+   height:28px;
+   border-radius:50%;
+   background:#ff5722;
+   margin-top:-10px;
+   cursor:grab;
 }
 
 input[type="range"]::-webkit-slider-thumb:active{
@@ -405,44 +374,44 @@ input[type="range"]::-webkit-slider-thumb:active{
 
 /* Firefox */
 input[type="range"]::-moz-range-track{
-    height:3px;
-    background:#555;
-    border-radius:10px;
-    border:none;
+   height:8px;
+   background:#555;
+   border-radius:10px;
+   border:none;
 }
 
 input[type="range"]::-moz-range-thumb{
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background:#ff5722;
-    border:none;
-    cursor:grab;
+   width:28px;
+   height:28px;
+   border-radius:50%;
+   background:#ff5722;
+   border:none;
+   cursor:grab;
 }
 
 input[type="range"]::-moz-range-thumb:active{
-    cursor:grabbing;
+   cursor:grabbing;
 }
 
 @media (min-width:600px) and (max-width:999px){
    input[type="range"]::-moz-range-track{
-      height:4px;
+     height:10px;
    }
    
    input[type="range"]::-moz-range-thumb{
-      width:16px;
-      height:16px;
+     width:32px;
+     height:32px;
    }
 }
 
 @media (min-width:1000px){
    input[type="range"]::-moz-range-track{
-      height:4px;
+     height:10px;
    }
    
    input[type="range"]::-moz-range-thumb{
-      width:18px;
-      height:18px;
+     width:36px;
+     height:36px;
    }
 }
 
@@ -625,6 +594,20 @@ input[type="range"]::-moz-range-thumb:active{
    }
 }
 
+/* SLIDER COMPACTO - ancho y menos alto */
+.sliderCompact{
+   width:100%;
+   max-width:100%;
+   height:20px;
+}
+
+/* MOBILE FIRST */
+@media (max-width:599px){
+   .sliderCompact{
+      height:18px;
+   }
+}
+
 /* NAVEGACIÓN DE SLIDERS */
 .sliderNavigation{
    display:flex;
@@ -637,6 +620,18 @@ input[type="range"]::-moz-range-thumb:active{
 #prevSliderBtn{
    background:#9C27B0;
    flex-shrink:0;
+   width:60px;
+   height:28px;
+   aspect-ratio:auto;
+}
+
+/* MOBILE FIRST */
+@media (max-width:599px){
+   #nextSliderBtn,
+   #prevSliderBtn{
+      width:56px;
+      height:26px;
+   }
 }
 
 #nextSliderBtn:active,
