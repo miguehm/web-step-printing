@@ -117,14 +117,15 @@ document.addEventListener("click",e=>{
 });
 
 // Botón play/pausa
-playPauseBtn.onclick=()=>{
-  if(video.paused){
-    video.play();
-    actualizarPlayPauseSvg();
-  }else{
-    video.pause();
-    actualizarPlayPauseSvg();
-  }
+playPauseBtn.onclick=(e)=>{
+   e.stopPropagation();
+   if(video.paused){
+     video.play();
+     actualizarPlayPauseSvg();
+   }else{
+     video.pause();
+     actualizarPlayPauseSvg();
+   }
 };
 
 // Actualizar icono play/pausa
@@ -140,30 +141,33 @@ function actualizarPlayPauseSvg(){
 }
 
 // Botón upload archivo
-uploadBtn.onclick=()=>{
- videoFile.click();
+uploadBtn.onclick=(e)=>{
+  e.stopPropagation();
+  videoFile.click();
 };
 
 // Botón toggle instrucciones
-instructionsToggleBtn.onclick=()=>{
- if(instructionsPanel.style.display==="none"){
-   instructionsPanel.style.display="flex";
- }else{
-   instructionsPanel.style.display="none";
- }
+instructionsToggleBtn.onclick=(e)=>{
+  e.stopPropagation();
+  if(instructionsPanel.style.display==="none"){
+    instructionsPanel.style.display="flex";
+  }else{
+    instructionsPanel.style.display="none";
+  }
 };
 
 // Botón pantalla completa
-fullscreenBtn.onclick=async()=>{
-  try{
-    if(!document.fullscreenElement){
-      await document.documentElement.requestFullscreen();
-    }else{
-      await document.exitFullscreen();
-    }
-  }catch(e){
-    console.error("Error al cambiar fullscreen:",e);
-  }
+fullscreenBtn.onclick=async(e)=>{
+   e.stopPropagation();
+   try{
+     if(!document.fullscreenElement){
+       await document.documentElement.requestFullscreen();
+     }else{
+       await document.exitFullscreen();
+     }
+   }catch(e){
+     console.error("Error al cambiar fullscreen:",e);
+   }
 };
 
 // Actualizar slider cuando cambia el tiempo del video
@@ -193,9 +197,15 @@ video.onplay=()=>{
 
 // Cuando el usuario mueve el slider
 videoTime.oninput=e=>{
- if(video.duration){
-   video.currentTime=(parseFloat(e.target.value)/100)*video.duration;
- }
+  e.stopPropagation();
+  if(video.duration){
+    video.currentTime=(parseFloat(e.target.value)/100)*video.duration;
+  }
+};
+
+// Proteger slider de trail (intensidad del rastro)
+trail.oninput=e=>{
+  e.stopPropagation();
 };
 
 // Loop
@@ -223,8 +233,9 @@ function loop(){
 loop();
 
 // Cámara - Toggle
-useCam.onclick=async()=>{
-  if(cameraActive){
+useCam.onclick=async(e)=>{
+   e.stopPropagation();
+   if(cameraActive){
     // Apagar cámara
     if(video.srcObject){
       video.srcObject.getTracks().forEach(track=>track.stop());
@@ -303,9 +314,10 @@ videoFile.onchange=e=>{
 };
 
 // Botón rotar video
-rotateBtn.onclick=()=>{
-  videoRotation=(videoRotation+Math.PI/2)%(2*Math.PI);
-  ajustarAspecto();
+rotateBtn.onclick=(e)=>{
+   e.stopPropagation();
+   videoRotation=(videoRotation+Math.PI/2)%(2*Math.PI);
+   ajustarAspecto();
 };
 
 window.addEventListener("resize",()=>{
