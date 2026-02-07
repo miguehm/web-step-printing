@@ -311,7 +311,7 @@ input[type="range"]{
 
 /* BARRA */
 input[type="range"]::-webkit-slider-runnable-track{
-   height:8px;
+   height:5px;
    background:#555;
    border-radius:10px;
 }
@@ -319,25 +319,25 @@ input[type="range"]::-webkit-slider-runnable-track{
 /* MOBILE FIRST */
 @media (max-width:599px){
    input[type="range"]::-webkit-slider-runnable-track{
-      height:4px;
+      height:3px;
    }
 }
 
 /* TABLET Y DESKTOP */
 @media (min-width:600px){
    input[type="range"]::-webkit-slider-runnable-track{
-     height:10px;
+     height:5px;
    }
 }
 
 /* PERILLA GRANDE */
 input[type="range"]::-webkit-slider-thumb{
    -webkit-appearance:none;
-   width:28px;
-   height:28px;
+   width:22px;
+   height:22px;
    border-radius:50%;
    background:#ff5722;
-   margin-top:-10px;
+   margin-top:-8.5px;
    cursor:grab;
 }
 
@@ -348,41 +348,41 @@ input[type="range"]::-webkit-slider-thumb:active{
 /* MOBILE FIRST - Pantallas pequeñas */
 @media (max-width:599px){
    input[type="range"]::-webkit-slider-thumb{
-      width:20px;
-      height:20px;
-      margin-top:-8px;
+      width:16px;
+      height:16px;
+      margin-top:-6.5px;
    }
 }
 
 /* TABLET */
 @media (min-width:600px) and (max-width:999px){
    input[type="range"]::-webkit-slider-thumb{
-     width:32px;
-     height:32px;
-     margin-top:-11px;
+     width:24px;
+     height:24px;
+     margin-top:-9.5px;
    }
 }
 
 /* DESKTOP */
 @media (min-width:1000px){
    input[type="range"]::-webkit-slider-thumb{
-     width:36px;
-     height:36px;
-     margin-top:-13px;
+     width:26px;
+     height:26px;
+     margin-top:-10.5px;
    }
 }
 
 /* Firefox */
 input[type="range"]::-moz-range-track{
-   height:8px;
+   height:5px;
    background:#555;
    border-radius:10px;
    border:none;
 }
 
 input[type="range"]::-moz-range-thumb{
-   width:28px;
-   height:28px;
+   width:22px;
+   height:22px;
    border-radius:50%;
    background:#ff5722;
    border:none;
@@ -395,24 +395,24 @@ input[type="range"]::-moz-range-thumb:active{
 
 @media (min-width:600px) and (max-width:999px){
    input[type="range"]::-moz-range-track{
-     height:10px;
+      height:5px;
    }
-   
-   input[type="range"]::-moz-range-thumb{
-     width:32px;
-     height:32px;
-   }
+    
+    input[type="range"]::-moz-range-thumb{
+      width:24px;
+      height:24px;
+    }
 }
 
 @media (min-width:1000px){
-   input[type="range"]::-moz-range-track{
-     height:10px;
-   }
-   
-   input[type="range"]::-moz-range-thumb{
-     width:36px;
-     height:36px;
-   }
+    input[type="range"]::-moz-range-track{
+      height:5px;
+    }
+    
+    input[type="range"]::-moz-range-thumb{
+      width:26px;
+      height:26px;
+    }
 }
 
 /* CONTROLES DE VIDEO */
