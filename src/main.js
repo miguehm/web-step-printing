@@ -22,18 +22,46 @@ uniforms:{
  tCurrent:{value:null},
  tAccum:{value:null},
  decay:{value:0.93},
+ contrast:{value:1.0},
+ brightness:{value:0.0},
  resolution:{value:new THREE.Vector2(innerWidth,innerHeight)}
 },
 fragmentShader:`
 uniform sampler2D tCurrent;
 uniform sampler2D tAccum;
 uniform float decay;
+uniform float contrast;
+uniform float brightness;
 uniform vec2 resolution;
+
 void main(){
  vec2 uv=gl_FragCoord.xy/resolution;
  vec4 cur=texture2D(tCurrent,uv);
  vec4 acc=texture2D(tAccum,uv);
- gl_FragColor=mix(cur,acc,decay);
+ 
+ // Acumular usando una mezcla que preserva el contraste
+ // En lugar de mezcla lineal simple, usamos un enfoque que mantiene
+ // mejor el rango dinámico cuando el decay es alto
+ vec4 accumulated=mix(cur,acc,decay);
+ 
+ // Normalización tonal: mantiene el brillo promedio sin perder contraste
+ // Esto ayuda cuando hay mucha acumulación
+ float lumCur=dot(cur.rgb,vec3(0.299,0.587,0.114));
+ float lumAcc=dot(acc.rgb,vec3(0.299,0.587,0.114));
+ float targetLum=mix(lumCur,lumAcc,decay);
+ 
+ // Si el brillo acumulado es muy bajo, aplicar boost sutil
+ float lumBoost=1.0;
+ if(targetLum<0.1){
+   lumBoost=mix(1.0,1.5,0.1-targetLum);
+ }
+ 
+ // Aplicar contraste y brillo
+ accumulated.rgb=(accumulated.rgb-0.5)*contrast+0.5;
+ accumulated.rgb+=vec3(brightness);
+ accumulated.rgb*=lumBoost;
+ 
+ gl_FragColor=accumulated;
 }`,
 vertexShader:`void main(){gl_Position=vec4(position,1.0);}`
 });
@@ -210,16 +238,28 @@ videoTime.oninput=e=>{
 
 // Proteger slider de trail (intensidad del rastro)
 trail.oninput=e=>{
-  e.stopPropagation();
+   e.stopPropagation();
+};
+
+// Proteger slider de contraste
+contrast.oninput=e=>{
+   e.stopPropagation();
+};
+
+// Proteger slider de brillo
+brightness.oninput=e=>{
+   e.stopPropagation();
 };
 
 // Loop
 function loop(){
-  requestAnimationFrame(loop);
-  if(videoTex){
-   mat.uniforms.tCurrent.value=videoTex;
-   mat.uniforms.tAccum.value=a.texture;
-   mat.uniforms.decay.value=parseFloat(trail.value);
+   requestAnimationFrame(loop);
+   if(videoTex){
+    mat.uniforms.tCurrent.value=videoTex;
+    mat.uniforms.tAccum.value=a.texture;
+    mat.uniforms.decay.value=parseFloat(trail.value);
+    mat.uniforms.contrast.value=parseFloat(contrast.value);
+    mat.uniforms.brightness.value=parseFloat(brightness.value);
 
    renderer.setRenderTarget(b);
    renderer.render(scene,camera);
