@@ -29,7 +29,7 @@ body{
 @media (max-width:599px){
    #menu{
       padding:8px;
-      gap:6px;
+      gap:3px;
    }
 }
 
@@ -166,34 +166,37 @@ input[type="file"]{
 
 /* TEXTO INDICATIVO */
 .hint{
-   font-size:12px;
+   font-size:10px;
    text-align:center;
-   opacity:0.6;
+   opacity:0.4;
    color:white;
-   margin-top:8px;
+   margin-top:2px;
 }
 
 /* MOBILE FIRST - Pantallas pequeñas */
 @media (max-width:599px){
    .hint{
-      font-size:9px;
-      margin-top:3px;
+      font-size:8px;
+      margin-top:1px;
+      opacity:0.35;
    }
 }
 
 /* TABLET */
 @media (min-width:600px) and (max-width:999px){
    .hint{
-     font-size:12px;
-     margin-top:8px;
+     font-size:9px;
+     margin-top:2px;
+     opacity:0.4;
    }
 }
 
 /* DESKTOP */
 @media (min-width:1000px){
    .hint{
-     font-size:13px;
-     margin-top:10px;
+     font-size:10px;
+     margin-top:2px;
+     opacity:0.45;
    }
 }
 

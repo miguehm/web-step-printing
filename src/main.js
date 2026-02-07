@@ -77,7 +77,6 @@ screenScene.add(screenQuad);
 let a=rtA,b=rtB;
 let videoTex=null;
 let cameraActive=false;
-let videoRotation=0;
 
 // Canvas para renderizar cuando no hay fuente activa
 const blankMat=new THREE.MeshBasicMaterial({color:0x000000});
@@ -96,12 +95,6 @@ function ajustarAspecto(){
  let vw=video.videoWidth;
  let vh=video.videoHeight;
  
- // Si está rotado 90° o 270°, intercambiar ancho y alto
- const isRotated90or270 = videoRotation === Math.PI/2 || videoRotation === (3*Math.PI/2);
- if(isRotated90or270){
-   [vw, vh] = [vh, vw];
- }
- 
  const videoAspect=vw/vh;
  const screenAspect=innerWidth/innerHeight;
 
@@ -115,8 +108,6 @@ function ajustarAspecto(){
 
  quad.scale.set(scaleX,scaleY,1);
  screenQuad.scale.set(scaleX,scaleY,1);
- quad.rotation.z=videoRotation;
- screenQuad.rotation.z=videoRotation;
 }
 
 // Función para actualizar la UI de controles de video
@@ -390,12 +381,6 @@ videoFile.onchange=e=>{
 };
 
 // Botón rotar video
-rotateBtn.onclick=(e)=>{
-   e.stopPropagation();
-   videoRotation=(videoRotation+Math.PI/2)%(2*Math.PI);
-   ajustarAspecto();
-};
-
 window.addEventListener("resize",()=>{
  renderer.setSize(innerWidth,innerHeight);
  ajustarAspecto();
