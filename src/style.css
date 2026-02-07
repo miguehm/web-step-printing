@@ -551,6 +551,21 @@ input[type="range"]::-moz-range-thumb:active{
 }
 
 /* CONTENEDOR DE SLIDERS COMPACTOS */
+.slidersPart{
+   display:flex;
+   gap:6px;
+   align-items:center;
+   width:100%;
+}
+
+.sliderContainerGroup{
+   display:flex;
+   flex-direction:column;
+   gap:4px;
+   flex:1;
+   min-width:0;
+}
+
 .sliderContainer{
    display:flex;
    flex-direction:column;
@@ -570,6 +585,7 @@ input[type="range"]::-moz-range-thumb:active{
    font-weight:bold;
    min-width:35px;
    text-align:right;
+   flex-shrink:0;
 }
 
 /* MOBILE FIRST */
@@ -586,18 +602,11 @@ input[type="range"]::-moz-range-thumb:active{
    max-width:100%;
 }
 
-/* NAVEGACIÓN DE SLIDERS */
-.sliderNavigation{
-   display:flex;
-   justify-content:flex-end;
-   gap:4px;
-   margin-top:4px;
-}
-
 #nextSliderBtn,
 #prevSliderBtn{
    background:#9C27B0;
    flex-shrink:0;
+   align-self:center;
 }
 
 #nextSliderBtn:active,

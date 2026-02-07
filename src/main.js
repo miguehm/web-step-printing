@@ -265,8 +265,6 @@ nextSliderBtn.onclick=(e)=>{
    if(currentSliderPart===1){
       slidersPart1.style.display="none";
       slidersPart2.style.display="flex";
-      slidersPart2.style.flexDirection="column";
-      slidersPart2.style.gap="6px";
       currentSliderPart=2;
    }
 };
@@ -276,8 +274,6 @@ prevSliderBtn.onclick=(e)=>{
    if(currentSliderPart===2){
       slidersPart2.style.display="none";
       slidersPart1.style.display="flex";
-      slidersPart1.style.flexDirection="column";
-      slidersPart1.style.gap="6px";
       currentSliderPart=1;
    }
 };
